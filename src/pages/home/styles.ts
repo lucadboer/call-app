@@ -12,15 +12,17 @@ export const Container = styled('div', {
 export const Hero = styled('div', {
   maxWidth: 480,
 
-  [`${Heading}`]: {
+  // O sinal ">" foi usado para aplicar essa configuração do Heading && Text apenas nesse componente da Home
+
+  [` > ${Heading}`]: {
     '@media(max-width: 600px)': {
       fontSize: '$6xl',
     },
   },
 
-  [`${Text}`]: {
+  [` > ${Text}`]: {
     color: '$gray200',
-    marginTop: '$2',
+    marginTop: '$6',
   },
 })
 
