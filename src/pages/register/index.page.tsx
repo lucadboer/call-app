@@ -8,6 +8,8 @@ import { ArrowRight } from 'phosphor-react'
 import { Container, Form, FormError, Header } from './styles'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import { api } from '../../lib/axios'
+import { AxiosError } from 'axios'
 
 const regiserFormSchema = z.object({
   username: z
@@ -47,7 +49,18 @@ export default function Register() {
   }, [router.query?.username, setValue])
 
   async function handleRegister(data: RegisterFormData) {
-    console.log(data)
+    try {
+      await api.post('/users', {
+        username: data.username,
+        name: data.name,
+      })
+      console.log('foi')
+    } catch (err) {
+      if (err instanceof AxiosError && err?.response?.data?.message) {
+        return alert(err.response.data.message)
+      }
+      console.log(err)
+    }
   }
 
   return (
