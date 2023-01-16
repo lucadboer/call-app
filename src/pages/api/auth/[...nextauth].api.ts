@@ -1,37 +1,57 @@
+import { NextApiRequest, NextApiResponse } from 'next'
 import NextAuth, { NextAuthOptions } from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google'
+import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google'
 import { PrismaAdapter } from '../../../lib/auth/prisma-adapter'
-export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(),
+export function buildNextAuthOptions(
+  req: NextApiRequest,
+  res: NextApiResponse,
+): NextAuthOptions {
+  return {
+    adapter: PrismaAdapter(req, res),
 
-  providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID ?? '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
-      authorization: {
-        params: {
-          scope:
-            'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar',
+    providers: [
+      GoogleProvider({
+        clientId: process.env.GOOGLE_CLIENT_ID ?? '',
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+        authorization: {
+          params: {
+            scope:
+              'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar',
+          },
         },
-      },
-    }),
-  ],
-  callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      if (
-        !account?.scope?.includes('https://www.googleapis.com/auth/calendar')
-      ) {
-        return '/register/connect-calendar/?error=permission'
-      }
+        profile(profile: GoogleProfile) {
+          return {
+            id: profile.sub,
+            name: profile.name,
+            email: profile.email,
+            username: '',
+            avatar_url: profile.picture,
+          }
+        },
+      }),
+    ],
+    callbacks: {
+      async signIn({ user, account, profile, email, credentials }) {
+        if (
+          !account?.scope?.includes('https://www.googleapis.com/auth/calendar')
+        ) {
+          return '/register/connect-calendar/?error=permission'
+        }
 
-      return true
+        return true
+      },
+      async redirect({ url, baseUrl }) {
+        return '/register/connect-calendar'
+      },
+      async session({ session, user, token }) {
+        return {
+          ...session,
+          user,
+        }
+      },
     },
-    async redirect({ url, baseUrl }) {
-      return '/register/connect-calendar'
-    },
-    async session({ session, user, token }) {
-      return session
-    },
-  },
+  }
 }
-export default NextAuth(authOptions)
+export default async function auth(req: NextApiRequest, res: NextApiResponse) {
+  return await NextAuth(req, res, buildNextAuthOptions(req, res))
+}
