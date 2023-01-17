@@ -7,7 +7,7 @@ import { ArrowRight, Check } from 'phosphor-react'
 import { Container, Form, Header } from '../styles'
 import { AuthError, ConnectBox } from './styles'
 
-export default function Register() {
+export default function ConnectCalendar() {
   // async function handleRegister(data: RegisterFormData) {}
 
   const router = useRouter()
