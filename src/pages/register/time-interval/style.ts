@@ -10,6 +10,7 @@ export const IntervalBox = styled(Box, {
       backgroundColor: '$ignite700',
       cursor: 'not-allowed',
     },
+    marginTop: '$2',
   },
 })
 
