@@ -105,7 +105,7 @@ export default function TimeInterval() {
   return (
     <Container>
       <Header>
-        <Heading as="strong">Conecte sua agenda!</Heading>
+        <Heading as="strong">Quase lá</Heading>
         <Text>
           Conecte o seu calendário para verificar automaticamente as horas
           ocupadas e os novos eventos à medida em que são agendados.
