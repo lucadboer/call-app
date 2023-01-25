@@ -22,6 +22,10 @@ export default function ConnectCalendar() {
     })
   }
 
+  async function handleNextStep() {
+    await router.push('/register/time-interval')
+  }
+
   return (
     <Container>
       <Header>
@@ -53,7 +57,7 @@ export default function ConnectCalendar() {
           </AuthError>
         )}
 
-        <Button disabled={!isSignied}>
+        <Button onClick={handleNextStep} disabled={!isSignied}>
           Próximo passo
           <ArrowRight />
         </Button>

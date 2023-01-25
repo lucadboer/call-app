@@ -10,16 +10,10 @@ export const ProfileBox = styled(Box, {
   },
 })
 
-export const SetImageContainer = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '$4',
-  marginTop: '$2',
-})
-
 export const ImageContainer = styled('div', {
   width: 64,
   height: 64,
+  marginTop: '$2',
 
   img: {
     width: '100%',
