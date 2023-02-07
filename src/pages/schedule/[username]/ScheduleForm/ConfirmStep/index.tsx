@@ -1,25 +1,30 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Text, TextArea, TextInput } from '@ignite-ui/react'
 import { Calendar, Timer } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { FormActions, FormConfirm, FormHeader } from './styles'
+import { FormActions, FormConfirm, FormError, FormHeader } from './styles'
 
-const confirmStepFormSchemma = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  observations: z.string(),
+const confirmFormSchemma = z.object({
+  name: z
+    .string()
+    .min(3, { message: 'O nome precisa ter no mínimo três caracteres' }),
+  email: z.string().email({ message: 'Digite um endereço de e-mail válido.' }),
+  observations: z.string().nullable(),
 })
 
-type ConfirmStepForm = z.infer<typeof confirmStepFormSchemma>
+type ConfirmSFormData = z.infer<typeof confirmFormSchemma>
 
 export function ConfirmStep() {
   const {
     handleSubmit,
     register,
-    formState: { isSubmitting },
-  } = useForm<ConfirmStepForm>()
+    formState: { isSubmitting, errors },
+  } = useForm<ConfirmSFormData>({
+    resolver: zodResolver(confirmFormSchemma),
+  })
 
-  function handleConfirmStep(data: ConfirmStepForm) {
+  function handleConfirmStep(data: ConfirmSFormData) {
     console.log(data)
   }
 
@@ -39,6 +44,9 @@ export function ConfirmStep() {
       <label>
         <Text>Seu nome</Text>
         <TextInput placeholder="lluca" {...register('name')} />
+        {errors.name && (
+          <FormError size={'sm'}>{errors.name?.message}</FormError>
+        )}
       </label>
 
       <label>
@@ -48,6 +56,9 @@ export function ConfirmStep() {
           placeholder="luca.boer@outlook.com"
           {...register('email')}
         />
+        {errors.name && (
+          <FormError size={'sm'}>{errors.email?.message}</FormError>
+        )}
       </label>
 
       <label>
