@@ -1,6 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import dayjs from 'dayjs'
+import { useRouter } from 'next/router'
 import { CaretLeft, CaretRight } from 'phosphor-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { api } from '../../lib/axios'
 import { getWeekDays } from '../../utils/get-day-week'
 import {
   CalendarActions,
@@ -30,6 +33,26 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(() => {
     return dayjs().set('date', 1)
   })
+  const [availableTimes, setAvailableTimes] = useState(null)
+
+  const router = useRouter()
+  const username = String(router.query.username)
+
+  useEffect(() => {
+    if (!selectedDate) {
+      return
+    }
+
+    api
+      .get(`users/${username}/avaliability`, {
+        params: {
+          date: dayjs(selectedDate).format('YYYY-MM-DD'),
+        },
+      })
+      .then((response) => setAvailableTimes(response.data))
+  }, [selectedDate, username])
+
+  console.log(availableTimes)
 
   const weekDays = getWeekDays({ short: true })
 
@@ -99,7 +122,8 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
     )
 
     return calendarWeeks
-  }, [currentDate])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentDate, username])
 
   function handlePreviousMonth() {
     const previousMonthDate = currentDate.subtract(1, 'month')
