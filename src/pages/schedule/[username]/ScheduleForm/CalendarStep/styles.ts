@@ -63,6 +63,7 @@ export const TimePickerItem = styled('button', {
   borderRadius: '$sm',
   fontSize: '$sm',
   lineHeight: '$base',
+  transition: 'background 0.2s',
 
   '&:last-child': {
     marginBottom: '$6',
