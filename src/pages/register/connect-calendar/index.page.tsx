@@ -1,5 +1,6 @@
 import { Button, Heading, MultiStep, Text } from '@ignite-ui/react'
 import { signIn, useSession } from 'next-auth/react'
+import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 
 import { ArrowRight, Check } from 'phosphor-react'
@@ -27,41 +28,45 @@ export default function ConnectCalendar() {
   }
 
   return (
-    <Container>
-      <Header>
-        <Heading as="strong">Conecte sua agenda!</Heading>
-        <Text>
-          Conecte o seu calendário para verificar automaticamente as horas
-          ocupadas e os novos eventos à medida em que são agendados.
-        </Text>
-        <MultiStep size={4} currentStep={2} />
-      </Header>
-      <Form>
-        <ConnectBox>
-          <Text>Google Calendar</Text>
-          {isSignied ? (
-            <Button disabled>
-              Conectado <Check />
-            </Button>
-          ) : (
-            <Button variant={'secondary'} onClick={handleConnectGoogleAcount}>
-              Conectar <ArrowRight />
-            </Button>
+    <>
+      <NextSeo title="Entre com o google | Call me" noindex />
+
+      <Container>
+        <Header>
+          <Heading as="strong">Conecte sua agenda!</Heading>
+          <Text>
+            Conecte o seu calendário para verificar automaticamente as horas
+            ocupadas e os novos eventos à medida em que são agendados.
+          </Text>
+          <MultiStep size={4} currentStep={2} />
+        </Header>
+        <Form>
+          <ConnectBox>
+            <Text>Google Calendar</Text>
+            {isSignied ? (
+              <Button disabled>
+                Conectado <Check />
+              </Button>
+            ) : (
+              <Button variant={'secondary'} onClick={handleConnectGoogleAcount}>
+                Conectar <ArrowRight />
+              </Button>
+            )}
+          </ConnectBox>
+
+          {hasAuthError && (
+            <AuthError>
+              Falha ao se conectar com o Google. Por favor, verifique se
+              habilitou as permissões do acesso ao Google Calendar.
+            </AuthError>
           )}
-        </ConnectBox>
 
-        {hasAuthError && (
-          <AuthError>
-            Falha ao se conectar com o Google. Por favor, verifique se habilitou
-            as permissões do acesso ao Google Calendar.
-          </AuthError>
-        )}
-
-        <Button onClick={handleNextStep} disabled={!isSignied}>
-          Próximo passo
-          <ArrowRight />
-        </Button>
-      </Form>
-    </Container>
+          <Button onClick={handleNextStep} disabled={!isSignied}>
+            Próximo passo
+            <ArrowRight />
+          </Button>
+        </Form>
+      </Container>
+    </>
   )
 }
