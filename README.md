@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![preview](./.github/call-app.png)
 
-## Getting Started
+### Call App
 
-First, run the development server:
+Este é um aplicativo de agendamento de reuniões que utiliza tecnologias web modernas, integração com a API do Google Agenda e um calendário com os dias e horários disponíveis do usuário, assim encontrando um melhor horário com a rotina. O aplicativo utiliza o OAuth 2.0 para autenticação do usuário e biblioteca dayjs para manipulação de datas e horas.
 
-```bash
-npm run dev
-# or
-yarn dev
+This is a meeting scheduling application that uses modern web technologies, integration with the Google Calendar API and a calendar with the user's available days and times, thus finding a better time with the routine. The application uses OAuth 2.0 for user authentication and dayjs library for handling dates and times.
+
+## 🛠 Technologies
+
+- React
+- TypeScript
+- Next.js
+- oAuth 2.0
+- Stitches CSS
+- Axios
+- Design System
+- Google API
+
+## 🧑‍💻 Applications
+
+- Next Auth
+- SSG and SSR
+- Next Routes
+- API with next.js
+
+## 🪄 How to use?
+
+### Abra o terminal e copie este repositório em alguma pasta com o comando | Open terminal and copy this repository at some dir with the comand
+```
+$ git clone https://github.com/lucadboer/call-app.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Acesse a pasta do projeto no prompt de comando ou pelo mouse | Access dir of the project in cmd or by mouse
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```
+$ cd call-app
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Instale as dependências da aplicação | Install the dependecies of the application
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```
+$ npm install
+or
+$ yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Execute a aplicação | Run the application
 
-## Learn More
+```
+$ npm run dev
+or
+$ yarn run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Depois desses processos acesse http://localhost:3000 no seu navegador. | After this proccess access http://localhost:3000 in your browser
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 💛 Contact
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Email --> luca.boer@outlook.com
+- Linkedin --> https://www.linkedin.com/in/luca-destefano-boer/
+- Portfolio --> https://about-luca.vercel.app/
