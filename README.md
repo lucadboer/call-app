@@ -54,7 +54,6 @@ $ yarn run dev
 ```
 
 ### Depois desses processos acesse http://localhost:3000 no seu navegador. | After this proccess access http://localhost:3000 in your browser
-```
 
 ## 💛 Contact
 
